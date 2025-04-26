@@ -1,0 +1,123 @@
+laser-tg01.py - Innitial version
+laser-tg02.py - Fixed Map
+laser-tg04.py - Random Map. No need to start and end.
+laser-tg05.py - Shoot with paygame.key.get_pressed() instead of event.
+laser-tg06.py - Error due to passing to events.
+laser-tg08.py - Slowed down to 30 fps to better handle diagonal shots.
+laser-tg09.py - Collision check. Player vs wall.
+laser-tg10.py - Buffer key down to correcly process diagonal shots.
+laser-tg11.py - Reducing buffer time to 50 ms feels better. 3 frames only.
+laser-tg12.py - Sliding through the walls.
+laser-tg13.py - Hitting the enemies, no recovery and acting like flies.
+laser-tg14.py - Enemies steadidly move. Collision detection enemies vs walls.
+laser-tg15.py - Enemies die (are removed) when their health is zero or less. Correct representation from its center.
+laser-tg16.py - Spawn the Player and the Enemies at random open spaces.
+laser-tg17.py - Uses HEALTH_RECOVERY_SPEED and WALL_PIXELS
+laser-tg18.py - Enemies shoot at different intervals. Still no harm.
+laser-tg19.py - Enemies' bullets harm other enemies. Still don't harm the player.
+laser-tg20.py - Implemented Player's health and player's hit. The player can die now. Fixed some bullet.remove logic.
+    Is this ready for kafka messaging integration? Or should we add some artifacts or cosmetic items? 
+    A graphic background? Music? Sound Efects?
+laser-tg21.py - Player's bullet should also be handled centralized. Created an issue with single IJKL shots.
+laser-tg22.py - Fixes single direction bullets (IJKL) by declaring global the game_bullets list.
+    Preparing for kafka integration:
+laser-tg23.py - Detecing WASD changes.
+laser-tg24.py - Changes the move function to check if a pygame.K_a for example is in the "keys" list.
+laser-tg25.py - Produce the message with a key = player_id
+laser-tg26.py - Produce the bullet-created type messages.
+laser-tg27.py - Kafka warm_up for messages to be real-time.
+laser-tg28.py - Migrating to a KafkaMessenger class.
+laser-tg29.py - Adding the KafkaMessageHandler class.
+laser-tg30.py - Adding the KafkaMapManager class.
+laser-tg31.py - Maze with map optional argument to use when kafka message exists.
+laser-tg33.py - Fixes Maze.__init__() missing 3 required positional arguments: 'rows', 'cols', and 'pixels' error
+laser-tg34.py - group.id in KafkaMapManager a function of payer_id.
+laser-tg35.py - configure map consumer to auto.offset.reset earliest and keep polling the map key for 20 seconds.
+laser-tg36.py - Read WASD update and draw remote enemy's moves.
+laser-tg37.py - Common group.id "game-consumer" for all the players.
+laser-tg38.py - Go back to auto.offset.reset earliest for game-events topic. Discard logs with timestamp older than 10 secs.
+laser-tg39.py - Return to individual group.id adding the player_id and "latest". Discard logs with timestamp older than 5 secs.
+laser-tg40.py - Fixes updating position of remote enemy. The rect.x and rect.y should be used instead of self.x and self.y
+laser-tg41.py - Purple remote enemies and send last-activity for maze re-creation.
+laser-tg42.py - Implement remote bullet creation.
+laser-tg43.py - Send Map flush(). Send message for bullet hit. message_type "got-hit".
+laser-tg44.py - laser-tg47.py Fix ❌ Error decoding message: 'NoneType' object is not subscriptable. Don't get position when hit.
+laser-tg48.py - New player send_spawn to receive other's wasd_update. current_keys need to be passed.
+laser-tg49.py - Just remove the bullet when hiting a remote enemy. Let it send you the hit message to process only one hit.
+laser-tg50.py - Calculate estimated_offset to fix clock skew.
+laser-tg51.py - Send player's current position evert 250ms only when the player is still.
+kafka_messaging20.py - laser-tg52.py - Calculate the LAN Round Trip with the first 5 own messages.
+kafka_messaging21.py - laser-tg53.py - Map in game-events topic. Don't send last activity redundantly.
+kafka_messaging22.py - laser-tg54.py - Calculate last_activity_age only when finding a map.
+laser-tg55.py - Remove "DEPRECATE THIS!" message. Creating a remote enemy from was-update message is valid scenario.
+kafka_messaging23.py - laser-tg56.py - Add message type "player-exit" to fix issue "Rmote enemies don't die sometimes".
+kafka_messaging24.py - Fix print(f"Last activity was {last_activity_age:.3f}s ago") - Unsupported format string passed to NoneType.
+laser-tg57.py - Remove current_keys and fix "player-exit" handle function.
+laser-tg58.py - Add a graphic background to the game.
+laser-tg59.py - Add a semi-transparent black surface to darken the background.
+laser-tg60.py - Transparent cut out portion based on health. (TCOP). Player doesn't print.
+laser-tg61.py - Fixing the player draw. Put all the steps in the draw function.
+laser-tg62.py - Optimize the object creation.
+laser-tg63.py - TCOP for enemies.
+laser-tg64.py - TCOP for remote enemies.
+laser-tg65.py - Fix remote enemy color and remove remote enemy with pop.
+laser-tg66.py - Menu screen double purpose.
+laser-tg67.py - laser-tg68.py - "WASD Move" and "IJKL Shoot" instructions. No animation.
+laser-tg69.py - "WASD Move" and "IJKL Shoot" images shaking.
+laser-tg70.py - "WASD Move" instruction shakes, too.
+laser-tg71.py - Sinusoidal Shake. For a more gentle shake effect.
+laser-tg73.py - Removes "is_shaking" faulty design and fixes it with t = min(sin, 1).
+laser-tg74.py - Status line "Loading Map..." and instruction "Press <F5> to Join".
+laser-tg75.py - kafka_messaging25 - Load the map from kafka. Adapts read_map_and_last_activity_age()
+laser-tg76.py - kafka_messaging26 - New message type "waiting-2-join"
+laser-tg77.py - Simplifying the map creation wait logic.
+laser-tg79.py - kafka_messaging28 - Change to know when I'm getting the map.
+laser-tg80.py - kafka_messaging29 - Discard KafkaMapReader and use KafkaMessageHandler. Include the map in idle messages.
+laser-tg81.py - Fix not getting the map on idle messages.
+laser-tg83.py - kafka_messaging30 - Fix message type "waiting-2-join" with hyphens.
+laser-tg84.py - Debugging handle_map_on_idle.
+laser-tg85.py - Increasing TIME_TO_GET_MAP = 6 fixed the issue. Remove debug prints.
+laser-tg86.py - Init the Game with Maze already created.
+laser-tg87.py - Transition to use the game object.
+laser-tg88.py - Fix game object usage in handle_kafka_messages() function.
+laser-tg89.py - Fix "KafkaMessenger.send_wasd_update() missing 1 required positional argument: 'map'" error.
+laser-tg90.py - Fix NameError: name 'game_bullets' is not defined.
+laser-tg91.py - State GAME_WATCHING duplicating code.
+laser-tg92.py - Migrate duplicated code to the Game class.
+laser-tg93.py - Message "All Lives Published – Now Consuming Chaos" when state is GAME_WATCHING.
+laser-tg94.py - Rotate messages every 8 seconds.
+laser-tg95.py - Brown overlay in GAME_WATCHING mode.
+laser-tg96.py - Better use the Instruction Fonts for the GAME_WATCHING mode.
+laser-tg97.py - laser-tg98.py - Decide between GAME_WATCHING or GAME_MENU mode.
+kafka_messaging31.py - Add reason to send_player_exit.
+laser-tg99.py - Randomize the number of local enemies and their shooting frequencies.
+laser-tgA0.py - Return from GAME_WATCHING to GAME_MENU and add a random number to start_time.
+laser-tgA1.py - Re-eneble player_timer when init a new game. Return to GAME_MENU when winning.
+laser-tgA2.py - Create typing and glowing effect for the "Loading Map..." status message.
+laser-tgA3.py - kafka_messaging32.py - Manage too-lazy game enter and avoid using the previous map.
+laser-tgA4.py - Fix getting the same map when there is a too-lazy game entrance.
+laser-tgA5.py - Enhance debugging message for map identification.
+laser-tgA6.py - Fix quickly generating a new map. Need to restart the menu_start_time when expiring map.
+laser-tgA7.py - Let's add some sound effects.
+laser-tgA8.py - Adjust volume per sound effect group.
+laser-tgA9.py - Randomize the timer of the local enemy, every time it shoots.
+laser-tgB0.py - Play sonud when hitting the enemies.
+laser-tgB1.py - Adjust volume of shots and hits.
+laser-tgB2.py - Use another sound for remote enemies' hits.
+laser-tgB3.py - Reduce/Increase volume when switching to and from GAME_WATCHING.
+laser-tgB4.py - Plays player hit sounds.
+laser-tgB5.py - Plays player die sound.
+laser-tgB6.py - Debug. player_deth sound is competing with too many shot sounds.
+laser-tgB7.py - Increase the number of channels to 16 and reserve 2 for music and screaming.
+laser-tgB8.py - Add winning scream.
+laser-tgB9.py - Add background music.
+laser-tgC0.py - Correct WASD and IJKL file names to lowercase for Linux compatibility.
+                Fix loop background music by using the reserved channel music_channel.
+laser-tgC1.py - Remove some unused constants. Clean up some comments.
+laser-tgC2.py - Remove remote_enemies only on "player-exit" message with any reason.
+
+Include time in console and shorten player_id.
+Use KeyboardInterrupt or something to flush when pressing <Ctrl>-C in the console.
+
+BACK LOG:
+Bullets with attibute who created it and don't damage creator.
