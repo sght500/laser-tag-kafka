@@ -8,8 +8,8 @@ In this fast-paced event-driven arena, each move is a message and every shot is 
 
 ## 🎮 Controls
 
-- **Player 1 Movement**: `W`, `A`, `S`, `D`  
-- **Player 2 Movement**: `I`, `J`, `K`, `L`  
+- **Move with Keys**: `W`, `A`, `S`, `D`  
+- **Shoot with Keys**: `I`, `J`, `K`, `L`  
 - Press `<F5>` to Join the game
 
 ## ⚙️ Powered By
