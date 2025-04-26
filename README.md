@@ -5,9 +5,7 @@ Each player runs their own game instance and connects via Kafka topics to battle
 
 Whether you're dodging enemy fire or strategizing with your local setup, this project is as much about learning as it is about blasting pixel enemies.
 
----
-
-## 📸 Screenshot
+### Screenshot of the Menu
 
 ![Laser Tag Kafka Menu](image/LaserTagKafkaMenu.png)
 
@@ -16,10 +14,10 @@ Whether you're dodging enemy fire or strategizing with your local setup, this pr
 ## ✨ Features
 
 - 🔫 **Local & Remote Enemies**: You're always one player. Others are remote enemies, controlled in real time via Kafka messages.
-- 💡 **Multiplayer with Kafka**: Every move, shot, and hit is synced through Kafka topics — no central server needed.
+- 💡 **Multiplayer with Kafka**: Every move, shot, and hit is synced through a Kafka topic — no central server needed.
 - 🖥️ **Play on Your Own LAN**: Yes, really! With a bit of setup, you can run the game with friends over your home network.
 - 🧰 **Simple Python Setup**: No external game engine — just good ol' `pygame`, some Kafka magic, and Python muscles.
-- 📜 **Step-by-Step Evolution**: Curious how it all came together? Check the [`historic/`](https://github.com/sght500/laser-tag-kafka/tree/main/historic) folder to trace the project’s evolution from basic mechanics to Kafka-enabled multiplayer!
+- 📜 **Step-by-Step Evolution**: Curious how it all came together? Check the [`historic`](https://github.com/sght500/laser-tag-kafka/tree/main/historic) folder to trace the project’s evolution from basic mechanics to Kafka-enabled multiplayer!
 - 🔉 **Custom Music**: Background music composed with [Suno](https://suno.com/song/9baf2d93-05de-4c59-8f1a-c412517e57a1), bringing the jungle skirmish vibes to your ears!
 
 ---
@@ -34,7 +32,17 @@ Install the required packages:
 pip install -r requirements.txt
 ```
 
-Then launch your instance and start tagging!
+Then launch your instance:
+
+```bash
+python laser-tg.py
+```
+
+And get them all with the Shoot keys!
+
+### Screenshot of the Game in Action
+
+![Playing Laser Tag Kafka](image/LaserTagKafkaPlaying.png)
 
 ---
 
@@ -68,7 +76,7 @@ Check the [CONTRIBUTING.md](https://github.com/sght500/laser-tag-kafka/blob/main
 
 ## 🕰️ Historical Builds
 
-If you're curious about how the game evolved from simple player movement to Kafka-powered mayhem, check out the [`historic/`](https://github.com/sght500/laser-tag-kafka/tree/main/historic) folder.  
+If you're curious about how the game evolved from simple player movement to Kafka-powered mayhem, check out the [`historic`](https://github.com/sght500/laser-tag-kafka/tree/main/historic) folder.  
 Each version captures a working stage in the development process — a great way to learn by example.
 
 ---
