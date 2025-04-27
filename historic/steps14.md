@@ -21,8 +21,6 @@ Remove the kafka-net network
 sudo docker network rm kafka-net
 ```
 
-
-
 If you haven't created that docker container, don't worry. This is just a clean up step.
 
 ## Create a docker container for kafka

@@ -1,0 +1,38 @@
+It would be "docker-compose.bak05.yml" if it doesn't work.
+
+sudo docker compose down -v
+sudo docker ps -a|grep kf
+sudo docker ps -a|grep ka
+sudo docker compose up -d
+
+* Kafka Logs
+sudo docker logs kafka
+[2025-04-04 20:06:52,317] INFO [KafkaRaftServer nodeId=1] Kafka Server started (kafka.server.KafkaRaftServer)
+
+* Consumer Python:
+🔄 Waiting for messages...
+❌ Consumer error: KafkaError{code=UNKNOWN_TOPIC_OR_PART,val=3,str="Subscribed topic not available: game-events: Broker: Unknown topic or partition"}
+
+Now I think we only need to create the topic game-events:
+
+sudo docker exec -it kafka bash
+kafka-topics.sh --create --topic game-events --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+Created topic game-events.
+
+* verify topic creation
+kafka-topics.sh --list --bootstrap-server localhost:9092
+__consumer_offsets
+game-events
+
+* describe a topic
+kafka-topics.sh --describe --topic game-events --bootstrap-server localhost:9092
+Topic: game-events      TopicId: SKqJAWcWSyOZgEHlypTWqw PartitionCount: 1       ReplicationFactor: 1    Configs: segment.bytes=1073741824
+Topic: game-events      Partition: 0    Leader: 1       Replicas: 1     Isr: 1  Elr:    LastKnownElr:
+
+* Producer Python:
+py producer01.py
+✅ Message delivered to game-events [0]
+
+* Consumer Python:
+🔄 Waiting for messages...
+📩 Received message: player1 - move-up

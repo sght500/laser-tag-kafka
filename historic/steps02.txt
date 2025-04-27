@@ -1,0 +1,21 @@
+🧪 Step 1: Open a shell inside the Kafka container
+sudo docker exec -it kafka bash
+
+🧪 Step 2: Create a topic (e.g., test-topic)
+kafka-topics.sh --create --topic test-topic --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+Created topic test-topic.
+
+🧪 Step 3: Produce a message
+kafka-console-producer.sh --topic test-topic --bootstrap-server localhost:9092
+>hello there!
+>somebody there?
+><Ctrl>-C
+
+🧪 Step 4: Open a new Kafka shell to consume messages
+sudo docker exec -it kafka bash
+kafka-console-consumer.sh --topic test-topic --from-beginning --bootstrap-server localhost:9092
+hello there!
+somebody there?
+^CProcessed a total of 2 messages
+I have no name!@2134dc9048ba:/$
+

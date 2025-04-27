@@ -1,0 +1,19 @@
+We need another topic for the Game Maze. It needs to be a compacted topic.
+
+sudo docker exec -it kafka bash
+kafka-topics.sh --create --topic game-maze --bootstrap-server localhost:9092 --config cleanup.policy=compact --partitions 1 --replication-factor 1
+
+Let's re-build 
+kafka-topics.sh --delete --topic game-maze --bootstrap-server localhost:9092
+
+A game normally takes 10 minutes. Let's wait for 2 hours before deleting the log.
+kafka-topics.sh --create --topic game-maze \
+  --bootstrap-server localhost:9092 \
+  --partitions 1 --replication-factor 1 \
+  --config retention.ms=7200000 \
+  --config cleanup.policy=delete,compact
+
+Created topic game-maze.
+
+Let's rebuid the game-events topic, too:
+kafka-topics.sh --delete --topic game-events --bootstrap-server localhost:9092

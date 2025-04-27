@@ -1,0 +1,46 @@
+🐳 1. Create a Docker Network
+sudo docker network create kafka-net
+def6ade3bb999dc958b509d2d5baaeefe7f126a1a8205d63aa21790a38df0acc
+
+📦 2. Run Kafka Container
+sudo docker run -d \
+  --name kafka \
+  --network kafka-net \
+  -p 9092:9092 \
+  -e KAFKA_PROCESS_ROLES=broker,controller \
+  -e KAFKA_NODE_ID=1 \
+  -e KAFKA_CONTROLLER_QUORUM_VOTERS=1@localhost:9093 \
+  -e KAFKA_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093 \
+  -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 \
+  -e KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER \
+  -e KAFKA_LOG_DIRS=/tmp/kraft-combined-logs \
+  confluentinc/cp-kafka:latest
+
+Digest: sha256:02170e46da5c36b1581cd42ebfbf2a55edae6348c62bc772bc2166841db745b2
+Status: Downloaded newer image for confluentinc/cp-kafka:latest
+f980cc9d15397d02195dcd566d67daa7ddb1f0e0e018d6f7e7a18054e8f87c16
+
+🧪 Test It’s Working
+sudo docker exec -it kafka bash
+Error response from daemon: container f980cc9d15397d02195dcd566d67daa7ddb1f0e0e018d6f7e7a18054e8f87c16 is not running
+
+* View the Error Logs
+sudo docker logs kafka
+Running in KRaft mode...
+CLUSTER_ID is required.
+Command [/usr/local/bin/dub ensure CLUSTER_ID] FAILED !
+
+* generate and pass a CLUSTER_ID
+sudo docker run --rm bitnami/kafka:latest kafka-storage random-uuid
+
+* using docker-compose.yml
+sudo docker compose up -d
+Error response from daemon: Conflict. The container name "/kafka" is already in use by container "f980cc9d15397d02195dcd566d67daa7ddb1f0e0e018d6f7e7a18054e8f87c16". You have to remove (or rename) that container to be able to reuse that name.
+
+* remove it
+sudo docker rm kafka
+kafka
+
+* try again
+sudo docker compose up -d
+ ✔ Container kafka  Started

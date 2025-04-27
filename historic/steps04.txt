@@ -1,0 +1,33 @@
+Let's fix the errors:
+kafka 19:16:00.40 ERROR ==> Role 'controller' enabled but listener CONTROLLER not found in KAFKA_CFG_LISTENERS.
+/opt/bitnami/scripts/libkafka.sh: line 401: KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: unbound variable
+
+It would be: "docker-compose.bak04.yml" if this doesn't work.
+
+* Stop everything:
+sudo docker compose down -v
+ ✔ Container kafka        Removed                                                                                                                                                       0.0s
+ ✔ Volume kfk_kafka_data  Removed                                                                                                                                                       0.0s
+ ✔ Network kfk_default    Removed                                                                                                                                                       0.4s
+
+* Remove dangling containers if needed:
+sudo docker ps -a
+[no] sudo docker rm <any-non-running-kafka-container>
+
+* Start with the corrected docker-compose.yml:
+sudo docker compose up -d
+WARN[0000] /home/mario/kfk/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion
+ ✔ Network kfk_default      Created                                                                                                                                                     0.0s
+ ✔ Volume "kfk_kafka_data"  Created                                                                                                                                                     0.0s
+ ✔ Container kafka          Started                                                                                                                                                     0.2s
+
+* Kafka log:
+kafka 19:49:43.87 ERROR ==> Role 'controller' enabled but environment variable KAFKA_CFG_CONTROLLER_LISTENER_NAMES was not provided.
+/opt/bitnami/scripts/libkafka.sh: line 358: KAFKA_CFG_CONTROLLER_LISTENER_NAMES: unbound variable
+
+Should we just remove the 'controller' role docker-compose.yml?
+Or should we try to add one more setting, in this case KAFKA_CFG_CONTROLLER_LISTENER_NAMES and what whould be the value for that? CONTROLLER?
+
+✅ Keep controller role.
+✅ Add KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER.
+✅ Restart containers.
