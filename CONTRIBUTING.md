@@ -1,4 +1,4 @@
-# Contributing to Add Points and Synthesize
+# Contributing to Laser Tag Kafka
 
 We welcome contributions to the **Laser Tag Kafka** project! Please follow these guidelines:
 
