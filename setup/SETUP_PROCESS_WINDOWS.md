@@ -43,12 +43,31 @@ dataDir=C://kfk//zookeeper
 
 ### 5. **Edit `server.properties`**
 
-File: `C:\kfk\config\server.properties`
-Modify this line:
+First, check the IP address of the Windows PC in which you will run Kafka. You can run this command:
+
+```cmd
+ipconfig
+```
+
+And look for a line like this one:
+
+```
+IPv4 Address. . . . . . . . . . . : 192.168.1.29
+```
+
+Now, edit this file: `C:\kfk\config\server.properties` and modify thes lines:
 
 ```properties
 log.dirs=C://kfk//kafka-logs
 ```
+
+and
+
+```properties
+advertised.listeners=PLAINTEXT://192.168.1.29:9092
+```
+
+Use the IP address of your Windows PC in which you will run Kafka.
 
 ### 6. **Start ZooKeeper**
 
@@ -124,13 +143,15 @@ This is the real topic we're going to use in the project. Let's create it and se
 
 ### 2. Edit the `producer.py` and `consumer.py` scripts.
 
-Edit the `producer.py` and `consumer.py` scripts to use `localhost` as your bootstrap-server.
+Edit the `producer.py` and `consumer.py` scripts to use the IP address of your Kafka PC.
 
-Since you're running Kafka in your local PC, you can edit the following line (on both files):
+Edit the following line on both files:
 
 ```python
-SERVER = 'localhost'
+SERVER = '192.168.1.29'
 ```
+
+Use the IP address of your Windows PC in which you are runing Kafka.
 
 ### 3. Send a test message with Python
 
