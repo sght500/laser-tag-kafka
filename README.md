@@ -24,7 +24,7 @@ Whether you're dodging enemy fire or strategizing with your local setup, this pr
 
 ## 🚀 Getting Started
 
-Make sure to check out the full [Setup Process](https://github.com/sght500/laser-tag-kafka/blob/main/setup/SETUP_PROCESS.md) to configure Kafka and run the game on your local network.
+Make sure to check out the full [Setup Process](https://github.com/sght500/laser-tag-kafka/blob/main/setup/SETUP_PROCESS_WINDOWS.md) to configure Kafka and run the game on your local network.
 
 Install the required packages:
 
